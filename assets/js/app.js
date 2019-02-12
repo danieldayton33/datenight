@@ -66,6 +66,23 @@ function initMap() {
 }
 
 $(document).ready(function () {
+    //bouncejs stuff
+    var bounce = new Bounce();
+    bounce.translate({
+        from: { x: 0, y: 0},
+        to: {x: 100, y: 0}
+    });
+    bounce.applyTo($(".animate"));
+    
+    var bounceLeft = new Bounce();
+    bounceLeft.translate({
+        from: { x: 0, y: 0},
+        to: {x: -100, y: 0}
+    });
+    bounceLeft.applyTo($(".animated")).then(function(){
+        $("#myModal").modal('toggle');
+    });
+
     //#region - geolocation
     function getLocation() {
         if (navigator.geolocation) {

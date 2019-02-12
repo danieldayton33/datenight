@@ -45,18 +45,40 @@
      const grabShowtimes = (loc) => {
         const theatreData = {};
         const movieNames = {};
+        const noahsMovies = [];
         return new Promise((resolve, reject) => {
               $.get(encodeURL(dateNow, loc, radius)).then(res => {
              let data;
              console.log('api data fetched');
              console.log(res);
              res.map(data => {
+                 console.log('DATA ', data)
                  movieNames[data.title] = [];
+                //  console.log('MOVIE NAMES ', movieNames)
+                // noahsMovies[data.theatre] = [];
+                // console.log('NOAH MOVIES ', noahsMovies)
                  data.showtimes.forEach(movie => {
                      movieNames[data.title].push(moment(movie.dateTime).format('hh:mm a'));
                      theatreData[movie.theatre.name] = movieNames;
-                     
                  });
+
+
+
+                 data.showtimes.map(showtime => {
+                    noahsMovies.push({name: showtime.theatre.name, movie: []}) 
+                })
+
+                data.showtimes.map(st => {
+                    const deduplicatedTheaters = [...new Set(noahsMovies)]
+                    console.log('NOAH MOVIES ', deduplicatedTheaters)
+                    deduplicatedTheaters.map((theater, i) => {
+                        if (theater === st.theater.name) {
+                            console.log('yes')
+                            deduplicatedTheaters[i].movie.push(data.title)
+                        }
+                    })
+                })
+
             })
              resolve(theatreData);
          })
@@ -68,17 +90,55 @@
     };
 
     function sortMovieData (res, theatreNames) {
-        var movieTitles = {}
-        var showTimes = [];
+        var movieData = {};
+        console.log("CHECKING DOT NOTATION",res[0].showtimes[1]);
+    
         console.log("API RES IN SORTMOVIE DATA", res);
-        for(var i = 0; i < res.length; i++){
-            for(var j = 0; j < res[i].showtimes.length; j++){
-                for(var x = 0; x <res[i].showtimes[j].length; x++){
-                   if() 
-                }
-            }
+        console.log("THEATRE NAMES FROM SORTMOVIE DATA",theatreNames);
+        
+        //     for(var i = 0; i < res.length; i++){
+                
+        //         for(var x = 0; x <res[i].showtimes.length; x++){
+        //             var movie = res[i].title
+        //             for(var j = 0; j < theatreNames.length; j++){
+        //                //check to see if the theater is playing this movie 
+        //                 if(theatreNames[j] === res[i].showtimes[x].theatre.name){
+        //                 //set movie to the title of this movie
+        //                 console.log(movie);
+        //                 //check the movies in the object and create array of them
+        //                 var movieTitle = Object.keys(movieData);
+        //                 var theater = theatreNames[j];
+        //                 console.log(theater);
+        //                 //check index of movieTitle array for this movie
+        //                 if(movieTitle.indexOf(movie) === -1){
+        //                     //create array to add showtime to
+        //                     var showtimes = []
+        //                     //create path with this movie for this theater
+        //                     movieData[theater][j] = movie
+        //                     console.log(movieData);
+        //                     console.log(res[i].showtimes[x].dateTime); 
+        //                     //push this showtime to the showtimes Array
+        //                     showtimes.push(res[i].showtimes[x].dateTime)
+        //                     console.log(showtimes);
 
-        }
+        //                     movieData[theater][movie][x] = showtimes;
+        //                     console.log(movieData);
+        //                 }
+        //                 else{
+        //                     movieData[theater][movie].showtimes.push(res[i].showtimes[x].dateTime);
+        //                 }
+
+                        
+                        
+        //            }
+                   
+            
+                   
+        //         }
+        //     }
+           
+        // }
+        // console.log("MOVIEDATA", movieData); 
     }
         
 
