@@ -1,6 +1,6 @@
 
-    const APIKEY = 'dp99ze7uepwt88ykbkfnpf4d';
-    // '2m5fs9kvktd48xcrz569rjkn' '7dadpsd62b4jwc7a92arb7fb'
+    const APIKEY = 'cf36ya2yf3yn6kxnxprmrfbm ';
+    // '2m5fs9kvktd48xcrz569rjkn' '7dadpsd62b4jwc7a92arb7fb'  dp99ze7uepwt88ykbkfnpf4d
 
 
     let baseUrl = 'https://data.tmsapi.com/v1.1/movies/showings?';
